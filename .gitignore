@@ -1,0 +1,4 @@
+*.un~
+*.sw?
+bower_components
+node_modules

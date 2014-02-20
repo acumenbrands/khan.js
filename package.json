@@ -1,0 +1,37 @@
+{
+  "name": "khan.js",
+  "version": "0.0.1",
+  "description": "A composable tweening library based on promises",
+  "main": "src/khan.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-cli" : "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-jasmine-node": "*",
+    "grunt-contrib-copy": "*",
+    "jsdom" : "*",
+    "coffee-script" : "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/acumenbrands/khan.js"
+  },
+  "keywords": [
+    "animation",
+    "promises",
+    "tween"
+  ],
+  "author": "Stephen Prater, Alex Williams, & Shane Riley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/acumenbrands/khan.js/issues"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "khan.js",
+  "version": "0.0.1",
+  "description": "A composable tweening library based on promises",
+  "main": "src/khan.js",
+  "keywords": [
+    "animation",
+    "tween",
+    "promises"
+  ],
+  "authors": [
+    "Stephen Prater",
+    "Alex Williams",
+    "Shane Riley"
+  ],
+  "license": "MIT",
+  "homepage": "github.com/acumenbrands/khan.js",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.8.3",
+    "lodash": "2.4.1"
+  }
+}
