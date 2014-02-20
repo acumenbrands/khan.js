@@ -13,14 +13,6 @@ Khan.Effects =
 
       opacity: new Khan.Tween 'opacity', 1, 0
 
-  Pan:
-    class Pan extends Khan.Controller
-      constructor: (event, @dimensions, @model) ->
-        @dim = new ImageControl.Views.Dimensions(event, @dimensions)
-        super(100, @topOffset(), @leftOffset())
-
-      leftOffset: -> new Khan.Tween 'leftOffset', @model.leftOffset,  @dim.offsetLeft()
-      topOffset:  -> new Khan.Tween 'topOffset',  @model.topOffset,   @dim.offsetTop()
 
   ZoomIn:
     class ZoomIn extends Khan.Controller
@@ -41,21 +33,6 @@ Khan.Effects =
       width:      ->  new Khan.Tween 'width',      @model.width,       @dimensions.width,   'quintout', updatable: false
       leftOffset: ->  new Khan.Tween 'leftOffset', @model.leftOffset,  0, 'linear', updatable: false
       topOffset:  ->  new Khan.Tween 'topOffset',  @model.topOffset,   0, 'linear', updatable: false
-
-  SpinTo:
-    class SpinTo extends Khan.Controller
-      constructor: (@model, @frame) ->
-        super(500, @row(), @column())
-
-      row:    ->  new Khan.Frames 'row',     @model.row,     @frame.row
-      column: ->  new Khan.Frames 'column',  @model.column,  @frame.column
-
-  View360:
-    class View360 extends Khan.Controller
-      constructor: ->
-        super(10000, @column())
-
-      column:    ->  new Khan.Frames 'column', 1, ImageControl.Settings.spinner.columns
 
   Rotation:
     class Rotation extends Khan.Controller
