@@ -29,8 +29,7 @@ tween is in progress - if you want to 'lock' a tween to it's initial destination
 
     new Khan.Tween 'property', begin, end, 'ease', updatable: false
 
-
-A tween by itself is not much use - you can composose multiple tweens into a single
+A tween by itself is not much use - you can compose multiple tweens into a single
 animation by subclassing the `Khan.Controller`
 
     class AnimationEffect extends Khan.Controller
@@ -79,3 +78,11 @@ In addition to `Khan.Tween` there are two other tween classes - `Khan.Frames`
 which completes it's tween in a given amount of frames (stretched over the 
 duration of the animation) and `Khan.Loop` which executes a given amount of frames
 over and over.
+
+## Contributors
+
+[Stephen Prater](https://github.com/stephenprater)
+
+[Alex Williams](https://github.com/Robovirtuoso)
+
+[Shane Riley](https://github.com/shaneriley)
