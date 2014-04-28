@@ -9,13 +9,15 @@
   },
   "devDependencies": {
     "grunt": "*",
-    "grunt-cli" : "*",
+    "grunt-cli": "*",
     "grunt-contrib-coffee": "*",
     "grunt-contrib-uglify": "*",
-    "grunt-jasmine-node": "*",
     "grunt-contrib-copy": "*",
-    "jsdom" : "*",
-    "coffee-script" : "*"
+    "jsdom": "*",
+    "coffee-script": "*",
+    "grunt-mocha-test": "~0.10.2",
+    "sinon": "~1.9.1",
+    "chai": "~1.9.1"
   },
   "scripts": {
     "test": "grunt test"

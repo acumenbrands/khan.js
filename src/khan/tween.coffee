@@ -1,13 +1,15 @@
+# Setup a tweenable property.
+#
+# Moves the value of 'property' from 'start' to 'end' using the named ease
+# function.
+#
+# Tweens can be set to be mutable by passing the "configurable" and "writable"
+# options to the constructor - this allows you to change the destination of a
+# tween (say the X coordiate of a translation) after the tweening has begun.
+#
+# the 'tween' property itself actually returns a generator-like function that
+# is called repeatedly from the animation controllers
 class Khan.Tween
-  # Setup a tweenable property. 
-  #
-  # Moves the value of 'property' from 'start' to 'end' using the named ease
-  # function. 
-  #
-  # Tweens can be set to be mutable by passing the "configurable" and "writable"
-  # options to the constructor - this allows you to change the destination of a
-  # tween (say the X coordiate of a translation) after the tweening has begun.
-  #
   constructor: (property, start, end, ease = 'linear', options={}) ->
     @ease = Khan.Ease[ease]
 
@@ -43,19 +45,51 @@ class Khan.Tween
     Khan.Utilities.tick duration, (i) =>
       @ease(i, @start, @end - @start, duration)
 
+# A subclass of tween that uses the "stretch" generator to always take a given
+# number of frames to arrive at it's destination value.
 class Khan.Frames extends Khan.Tween
-  # A subclass of tween that uses the "stretch" generator to always take a given
-  # number of frames to arrive at it's destination value.
   constructor: (@property, @start, @end, ease = 'linear') ->
-    super(@property, @start, @end, ease)
-    @steps = Math.abs(@start - @end)
+    super @property, @start, @end, ease
+
+    if @start == @end
+      @steps = 1
+    else
+      @steps = Math.abs(@start - @end)
 
   tween: (duration) ->
     Khan.Utilities.stretch @steps, duration, (i) =>
-      Math.ceil(@ease(i, @start, @end - @start, @steps))
+      Math.round(@ease(i, @start, @end - @start, @steps))
 
+# A subclass of tween that uses the "step" generator to take a given start and end
+# point and animate in X number of step between them.
+class Khan.Range extends Khan.Tween
+  constructor:(@property, @start, @end, @steps) ->
+    super @property, @start, @end
+    @diff = Math.abs(@start - @end) + 1
+    @direction = 1
+
+    unless @steps?
+      if @start == @end
+        @steps = 1
+      else
+        @steps = @diff
+
+    if(@start > @end)
+      @direction = -1
+    else if (@start == @end)
+      @direction = 0
+
+  tween: () ->
+    Khan.Utilities.step @steps, (i) =>
+      if @steps > @diff
+        i = i * @diff / @steps
+      if @steps == 1
+        return @end
+
+      Math.round((@start + i * @direction))
+
+# A subclass of tween that loops between the start and end points forever
 class Khan.Loop
-  # A subclass of tween that loops between the start and end points forever
   constructor: (@property, @steps, @bounce = false) ->
 
   tween: () ->
