@@ -47,12 +47,42 @@ class Khan.Frames extends Khan.Tween
   # A subclass of tween that uses the "stretch" generator to always take a given
   # number of frames to arrive at it's destination value.
   constructor: (@property, @start, @end, ease = 'linear') ->
-    super(@property, @start, @end, ease)
-    @steps = Math.abs(@start - @end)
+    super @property, @start, @end, ease
+
+    if @start == @end
+      @steps = 1
+    else
+      @steps = Math.abs(@start - @end)
 
   tween: (duration) ->
     Khan.Utilities.stretch @steps, duration, (i) =>
-      Math.ceil(@ease(i, @start, @end - @start, @steps))
+      Math.round(@ease(i, @start, @end - @start, @steps))
+
+class Khan.Range extends Khan.Tween
+  constructor:(@property, @start, @end, @steps) ->
+    super @property, @start, @end
+    @diff = Math.abs(@start - @end) + 1
+    @direction = 1
+
+    unless @steps?
+      if @start == @end
+        @steps = 1
+      else
+        @steps = @diff
+
+    if(@start > @end)
+      @direction = -1
+    else if (@start == @end)
+      @direction = 0
+
+  tween: () ->
+    Khan.Utilities.step @steps, (i) =>
+      if @steps > @diff
+        i = i * @diff / @steps
+      if @steps == 1
+        return @end
+
+      Math.round((@start + i * @direction))
 
 class Khan.Loop
   # A subclass of tween that loops between the start and end points forever
