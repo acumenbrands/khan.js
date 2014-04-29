@@ -8,6 +8,10 @@ global.jQuery = window.jQuery
 
 global._ = require '../bower_components/lodash/dist/lodash.min.js'
 
+global?.expect = require('chai').expect
+
+global?.sinon = require('sinon')
+
 require '../src/khan'
 
 global.Khan = window.Khan
@@ -17,8 +21,19 @@ require '../src/khan/ease'
 require '../src/khan/tween'
 require '../src/khan/utilities'
 
-jasmine.Matchers.prototype.toBeGreaterThanOrEqualTo = (expected) ->
-  @actual >= expected
+global.wait = (time, done, callback)->
+  wait = {}
 
-jasmine.Matchers.prototype.toBeGreaterThan = (expected) ->
-  @actual > expected
+  wait.timeout = setTimeout ->
+    throw new Error('Timeout Error')
+  , time
+
+  wait.interval = setInterval ->
+    if callback()
+      wait.cancel_interval()
+      done()
+  , 1
+
+  wait.cancel_interval = ->
+    clearTimeout(wait.timeout)
+    clearTimeout(wait.interval)
