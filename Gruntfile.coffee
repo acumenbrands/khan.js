@@ -13,7 +13,7 @@ module.exports = (grunt)->
         sourceMapDir: 'tmp/maps'
       compile:
         src: ['src/**/*.coffee']
-        dest: 'tmp/khan.js'
+        dest: 'dist/khan.js'
         ext: '.js'
 
     copy:
@@ -37,8 +37,7 @@ module.exports = (grunt)->
         sourceMap: true
         sourceMapIn: 'tmp/maps/mapskhan.js.map'
         files:
-          'dist/khan.min.js' : ['tmp/khan.js'],
+          'dist/khan.min.js' : ['dist/khan.js'],
 
-
-  grunt.registerTask('test', ['mochaTest:unit']);
-  grunt.registerTask('build', ['coffee','uglify', 'copy']);
+  grunt.registerTask 'test', ['mochaTest:unit']
+  grunt.registerTask 'build', ['coffee','uglify', 'copy']
