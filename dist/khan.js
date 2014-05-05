@@ -1,12 +1,19 @@
 (function() {
-  var __slice = [].slice,
+  var Khan,
+    __slice = [].slice,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
+  Khan = {
+    Deferred: jQuery.Deferred
+  };
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = Khan;
+  }
+
   if (typeof window !== "undefined" && window !== null) {
-    window.Khan = {
-      Deferred: jQuery.Deferred
-    };
+    window.Khan = Khan;
   }
 
   Khan.Controller = (function() {
@@ -34,8 +41,12 @@
       return _results;
     };
 
-    Controller.prototype.reset = function() {
+    Controller.prototype.halt = function() {
       delete this._deferred;
+      return delete this._ticks;
+    };
+
+    Controller.prototype.reset = function() {
       return delete this._ticks;
     };
 
@@ -403,4 +414,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=../tmp/maps/khan.js.map
+//# sourceMappingURL=maps/khan.js.map

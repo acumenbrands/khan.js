@@ -38,11 +38,16 @@ class Khan.Controller
     for key, value of options
       @tweens[key]?.end = value
 
+  # Resets the tweens to their original state without
+  #
+  halt: ->
+    delete @_deferred
+    delete @_ticks
+
   # Deletes the animations deferred object and resets all the tweens to their
   # initial state. Any promises set on the animation wil be lost.
   #
   reset: ->
-    delete @_deferred
     delete @_ticks
 
   # Stop the animation at it's current location, and fire the done hook

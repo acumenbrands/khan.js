@@ -13,9 +13,9 @@
     "grunt-contrib-coffee": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-copy": "*",
+    "grunt-mocha-test": "~0.10.2",
     "jsdom": "*",
     "coffee-script": "*",
-    "grunt-mocha-test": "~0.10.2",
     "sinon": "~1.9.1",
     "chai": "~1.9.1"
   },

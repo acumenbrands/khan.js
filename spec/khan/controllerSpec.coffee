@@ -1,4 +1,27 @@
+require '../spec_helper'
+
 describe "Khan", ->
+  describe '#halt', ->
+    it 'clears the promises and the tweens', ->
+      animation = new Khan.Controller(100, new Khan.Tween('property', 0, 100))
+
+      old_promise = animation.promise()
+      old_ticks   = animation.ticks()
+      animation.halt()
+      expect(old_promise).to.not.be.equal(animation.promise())
+      expect(old_ticks).to.not.be.equal(animation.ticks())
+
+  describe '#reset', ->
+    it 'clears the tweens but not the promises', ->
+      animation = new Khan.Controller(100, new Khan.Tween('property', 0, 100))
+
+      old_promise = animation.promise()
+      old_ticks   = animation.ticks()
+      animation.reset()
+      expect(old_promise).to.be.equal(animation.promise())
+      expect(old_ticks).to.not.be.equal(animation.ticks())
+
+
   describe "#animate", ->
     it "calls tick multiple times over the duration", (done)->
       opacity_animation = new Khan.Controller 100,

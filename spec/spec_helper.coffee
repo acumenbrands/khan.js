@@ -5,16 +5,10 @@ global.document = window.document
 require '../bower_components/jquery/jquery.js'
 
 global.jQuery = window.jQuery
-
 global._ = require '../bower_components/lodash/dist/lodash.min.js'
-
-global?.expect = require('chai').expect
-
-global?.sinon = require('sinon')
-
-require '../src/khan'
-
-global.Khan = window.Khan
+global.expect = require('chai').expect
+global.sinon = require('sinon')
+global.Khan = require '../src/khan'
 
 require '../src/khan/controller'
 require '../src/khan/ease'

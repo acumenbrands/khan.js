@@ -3,6 +3,7 @@ module.exports = (grunt)->
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-mocha-test')
+  grunt.loadNpmTasks('grunt-es6-module-transpiler');
 
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
@@ -10,20 +11,29 @@ module.exports = (grunt)->
       options:
         join: true
         sourceMap: true
-        sourceMapDir: 'tmp/maps'
+        sourceMapDir: 'tmp/maps/'
+        sourceRoot: 'maps'
       compile:
         src: ['src/**/*.coffee']
-        dest: 'dist/khan.js'
+        dest: 'tmp/khan.js'
         ext: '.js'
 
     copy:
-      sourcemap:
+      source:
         src: 'tmp/khan.src.coffee'
         dest: 'dist/maps/khan.src.coffee'
 
       map:
-        src: 'tmp/mapskhan.js.map'
-        dest: 'dist/maps/mapskhan.js.map'
+        src: 'tmp/maps/khan.js.map'
+        dest: 'dist/maps/khan.js.map'
+
+      unuglified:
+        src: 'tmp/khan.js'
+        dest: 'dist/khan.js'
+
+      uglified:
+        src: 'tmp/khan.min.js'
+        dest: 'dist/khan.min.js'
 
     mochaTest:
       unit:
@@ -34,10 +44,8 @@ module.exports = (grunt)->
 
     uglify:
       build:
-        sourceMap: true
-        sourceMapIn: 'tmp/maps/mapskhan.js.map'
         files:
-          'dist/khan.min.js' : ['dist/khan.js'],
+          'tmp/khan.min.js' : ['tmp/khan.js'],
 
   grunt.registerTask 'test', ['mochaTest:unit']
-  grunt.registerTask 'build', ['coffee','uglify', 'copy']
+  grunt.registerTask 'build', ['coffee', 'uglify', 'copy']
