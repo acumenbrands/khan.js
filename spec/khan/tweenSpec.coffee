@@ -118,3 +118,26 @@ describe "Khan.Range", ->
         expect(r.tick()).to.equal 3
         expect(r.tick()).to.equal 3
         # expect(you).see.the_point
+  
+describe "Khan.Loop", ->
+
+  describe "#tween", ->
+    beforeEach ->
+      @loop = Khan.Loop
+    
+    it 'loops over the given property forver', ->
+      l = new @loop('prop', 3).tween()
+      expect(l.tick()).to.equal 1
+      expect(l.tick()).to.equal 2
+      expect(l.tick()).to.equal 3
+      expect(l.tick()).to.equal 1
+      expect(l.tick()).to.equal 2
+
+    context 'bounce is set', ->
+      it 'loops over the given property forever in a bounce', ->
+        l = new @loop('prop', 3, true).tween()
+        expect(l.tick()).to.equal 1
+        expect(l.tick()).to.equal 2
+        expect(l.tick()).to.equal 3
+        expect(l.tick()).to.equal 2
+        expect(l.tick()).to.equal 1
